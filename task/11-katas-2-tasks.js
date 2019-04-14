@@ -34,7 +34,24 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let result = '';
+    let str = bankAccount.split('\n');
+    let pattern = RegExp(/(.{3})/);
+    str = str.map(item => item.split(pattern));
+
+    for (let i = 0; i < str[0].length; i++) {
+        if (str[0][i] === ' _ ' && str[1][i] === '| |' && str[2][i] === '|_|') result += 0;
+        if (str[0][i] === '   ' && str[1][i] === '  |' && str[2][i] === '  |') result += 1;
+        if (str[0][i] === ' _ ' && str[1][i] === ' _|' && str[2][i] === '|_ ') result += 2;
+        if (str[0][i] === ' _ ' && str[1][i] === ' _|' && str[2][i] === ' _|') result += 3;
+        if (str[0][i] === '   ' && str[1][i] === '|_|' && str[2][i] === '  |') result += 4;
+        if (str[0][i] === ' _ ' && str[1][i] === '|_ ' && str[2][i] === ' _|') result += 5;
+        if (str[0][i] === ' _ ' && str[1][i] === '|_ ' && str[2][i] === '|_|') result += 6;
+        if (str[0][i] === ' _ ' && str[1][i] === '  |' && str[2][i] === '  |') result += 7;
+        if (str[0][i] === ' _ ' && str[1][i] === '|_|' && str[2][i] === '|_|') result += 8;
+        if (str[0][i] === ' _ ' && str[1][i] === '|_|' && str[2][i] === ' _|') result += 9;
+    }
+    return result;
 }
 
 
