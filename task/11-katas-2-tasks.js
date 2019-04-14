@@ -80,7 +80,22 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    let result = '';
+    
+    if (text.length <= columns) {
+        return yield text;
+    }
+
+    while (text) {
+        let edge = text.slice(0, columns + 1).lastIndexOf(' ');
+        if (edge > 0) {
+            result = text.slice(0, edge);
+            yield result.trim();
+            text = text.slice(edge).trim();
+        } else {
+            return yield text;
+        }
+    }
 }
 
 
@@ -118,6 +133,26 @@ const PokerRank = {
 
 function getPokerHandRank(hand) {
     throw new Error('Not implemented');
+    /*let SF = true, FK = true, FH = true, F = true, S = true, TK = true, TP = true, OP = true, HC = true;
+    let card = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+    'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+    'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+
+    hand.sort(
+        (a, b) => card.indexOf(a) - card.indexOf(b)
+    );
+
+    for (let i=1; i < hand.length; i++) {
+        if(SF && (card.indexOf(hand[i - 1]) -  card.indexOf(hand[i])) != 1) {
+            SF = false;
+        }
+        if(FK) {
+
+        }
+    }
+
+    return PokerRank.HighCard;*/
 }
 
 
