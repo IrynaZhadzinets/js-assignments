@@ -33,7 +33,21 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    for (let i = 99; i >=0; i--) {
+        if(i > 2) {
+            yield(`${i} bottles of beer on the wall, ${i} bottles of beer.`);
+            yield(`Take one down and pass it around, ${i - 1} bottles of beer on the wall.`);
+        } else if(i == 2) {
+            yield('2 bottles of beer on the wall, 2 bottles of beer.');
+            yield('Take one down and pass it around, 1 bottle of beer on the wall.');
+        } else if(i == 1) {
+            yield('1 bottle of beer on the wall, 1 bottle of beer.');
+            yield('Take one down and pass it around, no more bottles of beer on the wall.');
+        } else {
+            yield('No more bottles of beer on the wall, no more bottles of beer.');
+            yield('Go to the store and buy some more, 99 bottles of beer on the wall.');
+        }
+    }
 }
 
 
@@ -47,7 +61,15 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let current = 0;
+    let next = 1;
+    let value;
+	while (true) {
+        yield current;
+        value = current
+		current = next;
+		next = value + next;
+	}
 }
 
 
@@ -82,7 +104,20 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [root];
+
+    while (queue.length !== 0) {
+        let cur = queue[queue.length - 1];
+
+        yield cur;
+        queue.pop();
+
+        if (cur.children !== undefined) {
+            for (let i = cur.children.length - 1; i >= 0; i--) {
+                queue.push(cur.children[i]);
+            }
+        }
+    }
 }
 
 
@@ -108,7 +143,23 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [root];
+    let curNode;
+    let curIndex = 0;
+
+    while (queue.length > curIndex) {
+        curNode = queue[curIndex];
+        
+        yield curNode;
+
+        if (curNode.children !== undefined) {
+            for (let i = 0; i < curNode.children.length; i++) {
+                queue.push(curNode.children[i]);
+            }
+        }
+
+        curIndex++;
+    } 
 }
 
 
@@ -126,7 +177,21 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let seq1 = source1();
+    let seq2 = source2();
+    while (true) {
+        let first = seq1.next();
+        let second = seq2.next();
+
+        if (first.done == true && second.done == false) {
+            yield second.value;
+        } else if (first.done == false && second.done == true) {
+            yield first.value;
+        } else {
+            yield Math.min(first.value, second.value);
+            yield Math.max(first.value, second.value);
+        }
+    }
 }
 
 
