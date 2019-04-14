@@ -316,12 +316,9 @@ function isCreditCardNumber(ccn) {
         }
     }
     let sum = 0;
-    console.log(str);
     for(let i = 0; i < str.length; i++) {
         sum += Number(str[i]);
-        console.log(sum+','+str[i]);
     }
-    console.log(sum);
     return sum % 10 == 0 ? true : false;
  }
 
@@ -495,7 +492,20 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let dirs = Array(pathes.length);
+    let commonPath = '';
+    for (let i = 0; i < pathes.length; i++) {
+    	dirs[i] = pathes[i].split('/');
+    }
+    for (let i = 0; i < dirs[0].length; i++) {
+    	for (let j = 1; j < dirs.length; j++) {
+    		if (dirs[0][i] != dirs[j][i]) {
+    			return commonPath;
+    		}
+    	}
+    	commonPath = commonPath.concat(dirs[0][i], '/');
+    }
+    return commonPath;
 }
 
 
@@ -518,7 +528,27 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let rowsM1 = m1.length;
+    let colsM1 = m1[0].length;
+    let rowsM2 = m2.length;
+    let colsM2 = m2[0].length;
+    let result = [];
+    if (colsM1 != rowsM2) {
+        return false;
+    }
+    for (let i = 0; i < rowsM1; i++) {
+        result[i] = [];
+    }
+    for (let k = 0; k < colsM2; k++) {
+        for (let i = 0; i < rowsM1; i++) { 
+            let t = 0;
+            for (let j = 0; j < rowsM2; j++) {
+                t += m1[ i ][j]*m2[j][k];
+            }
+            result[ i ][k] = t;
+        }
+     }
+    return result;
 }
 
 
@@ -553,7 +583,25 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    if (position[0][0] === position[1][0] && position[0][0] === position[2][0] && typeof position[0][0] !== 'undefined') {
+		return position[0][0];
+	} else if (position[0][0] === position[0][1] && position[0][0] === position[0][2] && typeof position[0][0] !== 'undefined') {
+		return position[0][0];
+	}else if(position[0][1] === position[1][1] && position[0][1] === position[2][1] && typeof position[0][1] !== 'undefined') {
+		return position[0][1];
+	} else if(position[0][2] === position[1][2] && position[0][2] === position[2][2] && typeof position[0][2] !== 'undefined') {
+		return position[0][2];
+	} else if (position[0][0] === position[1][1] && position[0][0] === position[2][2] && typeof position[0][0] !== 'undefined') {
+		return position[0][0];
+	} else if (position[2][0] === position[1][1] && position[2][0] === position[0][2] && typeof position[2][0] !== 'undefined') {
+		return position[2][0];
+	} else if (position[1][0] === position[1][1] && position[1][0] === position[1][2] && typeof position[1][0] !== 'undefined') {
+		return position[1][0];
+	} else if (position[2][0] === position[2][1] && position[2][0] === position[2][2] && typeof position[2][0] !== 'undefined') {
+		return position[2][0];
+	} else {
+		return undefined;
+	}
 }
 
 
